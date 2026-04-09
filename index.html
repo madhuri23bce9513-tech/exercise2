@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Drag and Drop</title>
+    <style>
+        #dropZone {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        #draggable {
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <h1>Drag and Drop Example</h1>
+    <p>Drag the image below into the dashed box.</p>
+    
+    <img id="draggable" src="image.avif"
+         draggable="true" ondragstart="dragStart(event)" width="200" height="100" alt="Draggable image">
+    
+    <div id="dropZone" ondragover="dragOver(event)" ondrop="drop(event)">
+        Drop zone - release here to move the image!
+    </div>
+
+    <script>
+        function dragStart(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);  // Set dragged data (element ID)
+        }
+
+        function dragOver(ev) {
+            ev.preventDefault();  // Allow drop by preventing default browser behavior
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");  // Get dragged data
+            ev.target.appendChild(document.getElementById(data));  // Move element to drop zone
+        }
+    </script>
+</body>
+</html>
